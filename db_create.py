@@ -65,3 +65,8 @@ CREATE TABLE IF NOT EXISTS Response (
                FOREIGN KEY (QuestionID) REFERENCES Question(QuestionID)
                );
                ''')
+
+# Commit the changes and close the connection 
+connection.commit()
+cursor.close()
+connection.close()
