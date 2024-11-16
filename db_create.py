@@ -4,7 +4,7 @@ from secrets_1 import USER, PASSWORD
 
 # Establish connection to the MySQL server 
 connection = mysql.connector.connect(
-    host='localhost:3306',
+    host='localhost',
     user=USER,
     password=PASSWORD,
     database='SWT'
@@ -30,11 +30,12 @@ cursor.execute('''
 CREATE TABLE IF NOT EXISTS Survey (
                SurveyID VARCHAR(255) PRIMARY KEY,
                SurveyName VARCHAR(255)
-               Sona_SurveyID INT, 
+               ParticipantID BINARY(16), 
                StartDate DATE,
                EndDate DATE,
                Trial INT, 
-               IsOpen BOOLEAN
+               IsOpen BOOLEAN,
+                FOREIGN KEY (ParticipantID) REFERENCES Participant(ParticipantID)
                );
                ''')
 
@@ -65,6 +66,16 @@ CREATE TABLE IF NOT EXISTS Response (
                FOREIGN KEY (QuestionID) REFERENCES Question(QuestionID)
                );
                ''')
+
+
+# Query to get a list of tables 
+cursor.execute("SHOW TABLES;")
+tables = cursor.fetchall()
+
+# Message to User 
+print("Tables created successfully:")
+for table in tables:
+    print(f"- {table[0]}")
 
 # Commit the changes and close the connection 
 connection.commit()
