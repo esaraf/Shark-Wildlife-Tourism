@@ -1,6 +1,8 @@
 import mysql.connector
+import pandas as pd
 
 from secrets_1 import USER, PASSWORD
+
 
 # Establish connection to the MySQL server 
 connection = mysql.connector.connect(
@@ -16,7 +18,7 @@ cursor = connection.cursor()
 # Create Participant table 
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS Participant (
-               ParticipantID BINARY(16) PRIMARY KEY, 
+               ParticipantID CHAR(36) PRIMARY KEY, 
                Sona_SurveyID INT, 
                GroupName VARCHAR(255),
                FirstName VARCHAR(255),
@@ -29,13 +31,13 @@ CREATE TABLE IF NOT EXISTS Participant (
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS Survey (
                SurveyID VARCHAR(255) PRIMARY KEY,
-               SurveyName VARCHAR(255)
-               ParticipantID BINARY(16), 
+               SurveyName VARCHAR(255),
+               ParticipantID CHAR(36), 
                StartDate DATE,
                EndDate DATE,
                Trial INT, 
                IsOpen BOOLEAN,
-                FOREIGN KEY (ParticipantID) REFERENCES Participant(ParticipantID)
+               FOREIGN KEY (ParticipantID) REFERENCES Participant(ParticipantID)
                );
                ''')
 
@@ -56,7 +58,7 @@ CREATE TABLE IF NOT EXISTS Question (
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS Response (
                ResponseID VARCHAR(255) PRIMARY KEY,
-               ParticipantID VARCHAR(255),
+               ParticipantID CHAR(36),
                QuestionID VARCHAR(255),
                ResponseScale FLOAT,
                ResponseOPE TEXT,
