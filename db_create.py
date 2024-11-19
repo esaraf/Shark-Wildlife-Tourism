@@ -1,5 +1,4 @@
 import mysql.connector
-import pandas as pd
 
 from secrets_1 import USER, PASSWORD
 
@@ -67,6 +66,15 @@ CREATE TABLE IF NOT EXISTS Response (
                FOREIGN KEY (ParticipantID) REFERENCES Participant(ParticipantID),
                FOREIGN KEY (QuestionID) REFERENCES Question(QuestionID)
                );
+               ''')
+
+
+# Ensure that you have created necessaary FK constraints to enforce referential integrity.
+cursor.execute('''ALTER TABLE Response
+ADD CONSTRAINT fk_participant
+FOREIGN KEY (ParticipantID) REFERENCES Participant(ParticipantID),
+ADD CONSTRAINT fk_question
+FOREIGN KEY (QuestionID) REFERENCES Question(QuestionID);
                ''')
 
 
