@@ -1,6 +1,10 @@
 # A dictionary that maps the exact question text from 
 # google forms to the corresponding QuestionID 
 
+# THIS IS HIGHLY REDUNDANT FOR CREATOR VISUALIZATION... 
+# FUTURE ITERATIONS SHOULD EXTRAPOLATE REPEATED QUESTIONS
+
+
 # GROUP B: DOCUMENTARY QUESTIONNAIRES 
 documentary_question_mapping = {
     #Timepoint = T0 (Initial)
@@ -70,39 +74,42 @@ documentary_question_mapping = {
     "7. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature now that you've viewed the documentary. [I protect the natural environment]":"2_4G",
     "8. Please describe what you recall from the documentary. (i.e., what did you learn about, etc.)":"5_1A",
     "9. Please describe how you think watching this documentary will impact your everyday life (if at all). ":"5_2A",
-    "10. What is the most valuable thing you gained from watching the documentary? ":"5_3A"
-}
+    "10. What is the most valuable thing you gained from watching the documentary? ":"5_3A",
 
-post_documentary_question_mapping = {
-    "1. After viewing the film, how frequently do you intend to engage in each marine conservation activity? [Read environmental or conservation materials, e.g., books, blogs, articles, etc.]":"1_1A",
-    "1. After viewing the film, how frequently do you intend to engage in each marine conservation activity? [Engage with environmental or conservation social media pages]":"1_1B",
-    "1. After viewing the film, how frequently do you intend to engage in each marine conservation activity? [Participate in activities run by environmental and/or conservation organizations]":"1_1C",
-    "1. After viewing the film, how frequently do you intend to engage in each marine conservation activity? [Donate to environmental and/or conservation organizations]":"1_1D",
-    "2. After viewing the film, how frequently do you intend to engage in each shark conservation activity?  [Actively advocate for legislation, e.g., contact government representatives, participate in a petition drive, etc.]":"1_2A",
-    "2. After viewing the film, how frequently do you intend to engage in each shark conservation activity?  [Participate in educational campaigns, e.g., organize or attend workshops, give presentations, etc.]":"1_2B",
-    "2. After viewing the film, how frequently do you intend to engage in each shark conservation activity?  [Support shark research, e.g., volunteer with research teams, collect data, etc.]":"1_2C",
-    "2. After viewing the film, how frequently do you intend to engage in each shark conservation activity?  [Create content to raise awareness, e.g., produce videos or share informative content on social media.]":"1_2D",
-    "3. If you had enough resources, such as time or money, would you participate in shark wildlife tourism experiences? ":"1_4A",
-    "4. How would you rate your knowledge of sharks now? e.g., where they live, where they eat, reproduction, etc. ":"2_1A",
-    "5. Please select the number that best represents your feelings about sharks in general, where 1 indicates 'no feeling' and 10 indicates 'Very strong feeling.' [Fear]":"2_2A",
-    "5. Please select the number that best represents your feelings about sharks in general, where 1 indicates 'no feeling' and 10 indicates 'Very strong feeling.' [Dislike]":"2_2B",
-    "5. Please select the number that best represents your feelings about sharks in general, where 1 indicates 'no feeling' and 10 indicates 'Very strong feeling.' [Curiousity]":"2_2C",
-    "5. Please select the number that best represents your feelings about sharks in general, where 1 indicates 'no feeling' and 10 indicates 'Very strong feeling.' [Excitement]":"2_2D",
-    "Please explain your answers from question 5, e.g., why do you feel that way, how have your feelings changed since watching the documentary, etc. (Optional)":"2_2E",
-    "6. Please indicate your level of agreement with each statement regarding your feelings now that you've viewed the documentary. [I like to learn about sharks.]":"2_3A",
-    "6. Please indicate your level of agreement with each statement regarding your feelings now that you've viewed the documentary. [I think feeding sharks makes them associate humans with food rewards.]":"2_3B",
-    "6. Please indicate your level of agreement with each statement regarding your feelings now that you've viewed the documentary. [I believe sharks are critical to the marine environment.]":"2_3C",
-    "6. Please indicate your level of agreement with each statement regarding your feelings now that you've viewed the documentary. [I think sharks are vulnerable and need more legal protection.]":"2_3D",
-    "6. Please indicate your level of agreement with each statement regarding your feelings now that you've viewed the documentary. [I think that sharks should not be fished or harvested in any way.]":"2_3E",
-    "6. Please indicate your level of agreement with each statement regarding your feelings now that you've viewed the documentary. [I think the legal protection of sharks has caused there to be too many sharks in the ocean.]":"2_3F",
-    "7. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature now that you've viewed the documentary. [I think that swimming with sharks in their natural environment is a transformative experience.]":"2_4A",
-    "7. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature now that you've viewed the documentary. [I think of myself as a part of nature, not separate from it.]":"2_4B",
-    "7. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature now that you've viewed the documentary. [If I had enough resources, such as time or money, I would spend some of them to protect the natural environment.]":"2_4C",
-    "7. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature now that you've viewed the documentary. [Behaving responsibly toward nature - living a sustainable lifestyle - is important to who I am.]":"2_4D",
-    "7. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature now that you've viewed the documentary. [Experiencing the natural world should be apart of everyones upbringing.]":"2_4E",
-    "7. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature now that you've viewed the documentary. [I consider myself a steward of our natural resources.]":"2_4F",
-    "7. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature now that you've viewed the documentary. [I protect the natural environment]":"2_4G",
-    "8. Please describe what you recall from the documentary. (i.e., what did you learn about, etc.)":"5_1A",
-    "9. Please describe how you think watching this documentary will impact your everyday life (if at all). ":"5_2A",
-    "10. What is the most valuable thing you gained from watching the documentary? ":"5_3A"
+    #TIMEPOINT = T2 and T3 (1 and 3 MONTH FOLLOW UP)
+    "1. Since your viewing, how frequently do you engage in each of these marine conservation activities?  [Read environmental or conservation materials, e.g., books, blogs articles, etc.]":"1_1A",
+    "1. Since your viewing, how frequently do you engage in each of these marine conservation activities?  [Engage with environmental or conservation social media pages]":"1_1B",
+    "1. Since your viewing, how frequently do you engage in each of these marine conservation activities?  [Participate in activities run by environmental and/or conservation organizations]":"1_1C",
+    "1. Since your viewing, how frequently do you engage in each of these marine conservation activities?  [Donate to environmental and/or conservation organizations]":"1_1D",
+    "Please explain your answers from Question 1 ":"1_1E",
+    "2. Since your viewing, how frequently do you engage in each of these shark conservation activites? [Actively advocate for legislation, e.g., contact government representatives, participate in a petition drive, etc.]":"1_2A",
+    "2. Since your viewing, how frequently do you engage in each of these shark conservation activites? [Participate in educational campaigns]":"1_2B",
+    "2. Since your viewing, how frequently do you engage in each of these shark conservation activites? [Support shark research, e.g., volunteer with research teams, collect data, etc.]":"1_2C",
+    "2. Since your viewing, how frequently do you engage in each of these shark conservation activites? [Create content to raise awareness e.g., produce videos or shark informative content on social media, etc.]":"1_2D",
+    "Please explain your answers from Question 2":"1_2E",
+    "3a. Have you participated in any shark wildlife tourism experiences since the time you answered the initial questionnaire or do you have any planned? ":"1_3A",
+    "3b. If you answered 'Yes' on question 3a., please explain about your additional experience(s) in regards to how many times and what the activity included. ":"1_3B",
+    "4. How would you rate your knowledge of sharks before you watched the documentary? ":"2_1B",
+    "5. How would you rate your knowledge of sharks now that you watched the shark documentary over 1 month ago? ":"2_1C",
+    "6. Please select the number that best represents your feelings about sharks in general, where 1 indicates 'no feeling' and 10 indicates 'Very strong feeling.' [Fear]":"2_2A",
+    "6. Please select the number that best represents your feelings about sharks in general, where 1 indicates 'no feeling' and 10 indicates 'Very strong feeling.' [Dislike]":"2_2B",
+    "6. Please select the number that best represents your feelings about sharks in general, where 1 indicates 'no feeling' and 10 indicates 'Very strong feeling.' [Curiousity]":"2_2C",
+    "6. Please select the number that best represents your feelings about sharks in general, where 1 indicates 'no feeling' and 10 indicates 'Very strong feeling.' [Excitement]":"2_2D",
+    "Please explain your answers from Question 6, e.g., why do you feel that way, how have your feelings changed since your viewing etc.":"2_2E",
+    "7. Please indicate your level of agreement with each statement regarding your feelings about sharks.  [I like to learn about sharks. ]":"2_3A",
+    "7. Please indicate your level of agreement with each statement regarding your feelings about sharks.  [I think feeding sharks makes them associate humans with food rewards.]":"2_3B",
+    "7. Please indicate your level of agreement with each statement regarding your feelings about sharks.  [I believe sharks are critical to the marine environment. ]":"2_3C",
+    "7. Please indicate your level of agreement with each statement regarding your feelings about sharks.  [I think sharks are vulnerable and need more legal protection.]":"2_3D",
+    "7. Please indicate your level of agreement with each statement regarding your feelings about sharks.  [I think that sharks should not be fished or harvested in any way. ]":"2_3E",
+    "7. Please indicate your level of agreement with each statement regarding your feelings about sharks.  [I think the legal protection of sharks has caused there to be too many sharks in the ocean.]":"2_3F",
+    "8. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature.  [I think that swimming with sharks in their natural environment is a transformative experience. ]":"2_4A",
+    "8. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature.  [I think of myself as a part of nature, not separate from it.]":"2_4B",
+    "8. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature.  [If I had enough resources, such as time or money, I would spend some of them to protect the natural environment. ]":"2_4C",
+    "8. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature.  [Behaving responsibly toward nature - living a sustainable lifestyle - is important to who I am.]":"2_4D",
+    "8. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature.  [Experiencing the natural world should be apart of everyones upbringing.]":"2_4E",
+    "8. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature.  [I consider myself a steward of our natural resources. ]":"2_4F",
+    "8. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature.  [I protect the natural environment]":"2_4G",
+    "9. Please describe what you recall from the documentary. (i.e., what did you learn).":"5_1A",
+    "10. Please describe how your viewing has impacted your everyday life (if at all).":"5_2A",
+    "11. Looking back on your experience watching the documentary what would you say was the most valuable thing you gained from your experience?":"5_3A"
 }
