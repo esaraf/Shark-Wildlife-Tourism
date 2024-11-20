@@ -297,7 +297,7 @@ control_question_mapping = {
     "11. Please select one of the following categories that best describes your approximate individual annual income 'before tax' in US dollars: ":"3_4A",
     "12. Please select your country of residence:":"3_5A",
     "13. Please select which of the following best describes your occupational status. ":"3_6A",
-    "14. If you're willing to participate in an additional follow-up survey, three months from today, please indicate below. ":"3_7A"
+    "14. If you're willing to participate in an additional follow-up survey, three months from today, please indicate below. ":"3_7A",
 
     #Timepoint = T2 and T3 (1 and 3 Month Follow Up) 
     "1. How frequently do you engage in each of these marine conservation activities?  [Read environmental or conservation materials, e.g., books, blogs articles, etc.]":"1_1A",
