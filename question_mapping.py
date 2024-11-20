@@ -262,6 +262,7 @@ documentary_question_mapping = {
     "11. Looking back on your experience watching the documentary what would you say was the most valuable thing you gained from your experience?":"5_3A"
 }
 
+# GROUP C: CONTROL
 control_question_mapping = {
     #Timepoint = T0 (Initial)
     "1. How frequently do you engage in each of these marine conservation activities? [Read environmental or conservation materials, e.g., books, blogs, articles, etc.]":"1_1A",

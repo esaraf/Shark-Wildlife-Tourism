@@ -1,18 +1,36 @@
 import unittest
 import pandas as pd
-from question_to_ID_mapping import documentary_question_mapping
+from question_mapping import documentary_question_mapping, shark_question_mapping, control_question_mapping
 
 
 class TestQuestionMapping(unittest.TestCase):
 
-    def test_question_to_id_mapping(self):
-        """Tests that all questions in the dictionary are mapped to a valid QuestionID"""
+    def test_question_to_id_mapping_to_documentary_group(self):
+        """Tests that all questions in the documentary question dictionary are mapped to a valid QuestionID"""
         for question, question_id in documentary_question_mapping.items():
             self.assertIsNotNone(question_id, f"Missing QuestionID for {question}")
             self.assertNotEqual(question_id, "", f"Empty QuestionID for {question}")
 
 
-        print("All questions correctly mapped to QuestionIDs")
+        print("All questions correctly mapped to QuestionIDs in documentary")
+    
+    def test_question_to_id_mapping_to_shark_group(self):
+        """Tests that all questions in the shark question dictionary are mapped to a valid QuestionID"""
+        for question, question_id in shark_question_mapping.items():
+            self.assertIsNotNone(question_id, f"Missing QuestionID for {question}")
+            self.assertNotEqual(question_id, "", f"Empty QuestionID for {question}")
+
+
+        print("All questions correctly mapped to QuestionIDs in shark group")
+
+    def test_question_to_id_mapping_to_control_group(self):
+        """Tests that all questions in the shark question dictionary are mapped to a valid QuestionID"""
+        for question, question_id in control_question_mapping.items():
+            self.assertIsNotNone(question_id, f"Missing QuestionID for {question}")
+            self.assertNotEqual(question_id, "", f"Empty QuestionID for {question}")
+
+
+        print("All questions correctly mapped to QuestionIDs in control group")
 
     def test_identical_questionID_across_timepoints(self):
         """Test that questions repeated across time points have the same QuestionID"""
