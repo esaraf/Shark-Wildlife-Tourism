@@ -65,4 +65,3 @@ question_type_mapping = {
         "0_0A"
     ]
 }
-

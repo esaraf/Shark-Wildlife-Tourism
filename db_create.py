@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS Response (
                ''')
 
 
-# Ensure that you have created necessaary FK constraints to enforce referential integrity.
+# Ensure that you have created necessary FK constraints to enforce referential integrity.
 cursor.execute('''ALTER TABLE Response
 ADD CONSTRAINT fk_participant
 FOREIGN KEY (ParticipantID) REFERENCES Participant(ParticipantID),
