@@ -2,14 +2,18 @@
 
 
 question_type_mapping = {
-    "Likert_Type_1": [ #Frequency Based
+    "Likert_Type_1": [ # Frequency Based
         "1_1A",
         "1_1B",
         "1_1C",
-        "1_1D"
+        "1_1D",
+        "1_2A",
+        "1_2B",
+        "1_2C",
+        "1_2D"
     ], 
     
-    "Likert_Type_2":[ #Agreement Based
+    "Likert_Type_2":[ # Agreement Based
         "2_3A",
         "2_3B",
         "2_3C",
@@ -26,17 +30,20 @@ question_type_mapping = {
     ], 
 
     "MC":[ # Multiple Choice.... TO DO: Map MC QIDs to specific MC answers
+        "1_3C",
         "3_1A",
         "3_2A",
         "3_3A",
         "3_4A",
         "3_5A",
-        "3_6A"
+        "3_6A",
+        "3_7A"
     ],
 
     "Polar":[ # Yes / No
         "1_3A",
-        "1_4A"
+        "1_4A",
+        "3_7A"
     ],
 
     "Scale":[ # 1 to 10 
@@ -54,6 +61,7 @@ question_type_mapping = {
         "1_2E",
         "1_3D",
         "1_3B",
+        "2_1D",
         "2_2E",
         "5_1A",
         "5_2A",
