@@ -18,7 +18,7 @@ cursor = connection.cursor()
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS Participant (
                ParticipantID CHAR(36) PRIMARY KEY, 
-               Sona_SurveyID INT, 
+               AssignedInFieldID INT, 
                GroupName VARCHAR(255),
                FirstName VARCHAR(255),
                LastName VARCHAR(255),
