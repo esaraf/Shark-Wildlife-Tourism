@@ -56,13 +56,10 @@ CREATE TABLE IF NOT EXISTS Question (
 # Create Response table 
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS Response (
-               ResponseID VARCHAR(255) PRIMARY KEY,
+               ResponseID CHAR(36) PRIMARY KEY,
                ParticipantID CHAR(36),
                QuestionID VARCHAR(255),
-               ResponseScale FLOAT,
-               ResponseOPE TEXT,
-               ResponseLikertID INT,
-               ResponseMCID INT,
+               ResponseValue TEXT,
                FOREIGN KEY (ParticipantID) REFERENCES Participant(ParticipantID),
                FOREIGN KEY (QuestionID) REFERENCES Question(QuestionID)
                );
