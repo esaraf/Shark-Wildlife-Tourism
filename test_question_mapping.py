@@ -13,7 +13,7 @@ class TestQuestionMapping(unittest.TestCase):
             self.assertNotEqual(question_id, "", f"Empty QuestionID for {question}")
 
 
-        print("All questions correctly mapped to QuestionIDs in documentary")
+        print("All questions mapped to a QuestionID in documentary")
     
     def test_question_to_id_mapping_to_shark_group(self):
         """Tests that all questions in the shark question dictionary are mapped to a valid QuestionID"""
@@ -22,7 +22,7 @@ class TestQuestionMapping(unittest.TestCase):
             self.assertNotEqual(question_id, "", f"Empty QuestionID for {question}")
 
 
-        print("All questions correctly mapped to QuestionIDs in shark group")
+        print("All questions mapped to a QuestionID in shark group")
 
     def test_question_to_id_mapping_to_control_group(self):
         """Tests that all questions in the shark question dictionary are mapped to a valid QuestionID"""
@@ -30,7 +30,7 @@ class TestQuestionMapping(unittest.TestCase):
             self.assertIsNotNone(question_id, f"Missing QuestionID for {question}")
             self.assertNotEqual(question_id, "", f"Empty QuestionID for {question}")
 
-        print("All questions correctly mapped to QuestionIDs in control group")
+        print("All questions mapped to a QuestionID in control group")
 
     def test_identical_questionID_across_timepoints(self):
         """Test that questions repeated across time points have the same QuestionID"""
