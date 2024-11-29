@@ -26,7 +26,13 @@ question_type_mapping = {
         "2_4D",
         "2_4E",
         "2_4F",
-        "2_4G"
+        "2_4G",
+        "4_1A",
+        "4_2A",
+        "4_3A",
+        "4_4A",
+        "4_5A",
+        "4_6A"
     ], 
 
     "MC":[ # Multiple Choice.... TO DO: Map MC QIDs to specific MC answers
