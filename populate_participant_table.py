@@ -15,6 +15,8 @@ connection = mysql.connector.connect(
     database='SWT'
 )
 
+cursor = connection.cursor()
+
 # Data insertion code below: 
 # Iterate existing Dataframe and insert each row with a UUID 
 
