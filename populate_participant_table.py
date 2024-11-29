@@ -2,9 +2,9 @@ import pandas as pd
 import mysql.connector
 import uuid
 
-from secrets_1 import USER, PASSWORD
+from secrets_1 import USER, PASSWORD, PARTICIPANT_TABLE
 
-file_path = '/Users/elizabethsaraf/Desktop/SWT/Analysis/Database/csv/Participant.csv'
+file_path = PARTICIPANT_TABLE
 df = pd.read_csv(file_path)
 
 # Establish connection to database 
@@ -15,16 +15,13 @@ connection = mysql.connector.connect(
     database='SWT'
 )
 
-# Create a cursor object 
-cursor = connection.cursor()
-
 # Data insertion code below: 
 # Iterate existing Dataframe and insert each row with a UUID 
 
 for index, row in df.iterrows():
     participantID = str(uuid.uuid4()) # Generate a UUID for each participant
     assigned_in_field_id = row['AssignedInFieldID'] if pd.notna(row['AssignedInFieldID']) else None
-    group_name = row['Group']
+    group_name = row['GroupName']
     first_name = row['FirstName'] if pd.notna(row['FirstName']) else None
     last_name = row['LastName'] if pd.notna(row['LastName']) else None
     email_address = row['EmailAddress']

@@ -4,7 +4,7 @@ from question_mapping import documentary_question_mapping_T0, documentary_questi
 from question_type_mapping import question_type_mapping
 
 from utils import filter_non_question_fields
-from secrets_1 import SHARK_RESPONSE_T0
+from secrets_1 import SHARK_RESPONSE_T0, PARTICIPANT_TABLE
 
 class TestQuestionMapping(unittest.TestCase):
 
