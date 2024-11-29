@@ -352,3 +352,15 @@ control_question_mapping_T2_and_T3 = {
     "8. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature.  [I protect the natural environment]":"2_4G",
     "9. Please describe any experiences you think that are relevant to the study that you have had during the last month.":"5_4A"
 }
+
+combined_dict_mapping = {
+            **shark_question_mapping_T0,
+            **shark_question_mapping_T1,
+            **shark_question_mapping_T2,
+            **shark_question_mapping_T3,
+            **documentary_question_mapping_T0,
+            **documentary_question_mapping_T1,
+            **documentary_question_mapping_T2_and_3,
+            **control_question_mapping_T0,
+            **control_question_mapping_T2_and_T3
+        }
