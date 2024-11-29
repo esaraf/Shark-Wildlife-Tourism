@@ -6,7 +6,7 @@
 
 # GROUP A: SHARK QUESTIONNAIRES
 
-shark_question_mapping = {
+shark_question_mapping_T0 = {
     #Timepoint = T0 (Initial)
     "1. How frequently do you engage in each of these marine conservation activities? [Read environmental or conservation materials, e.g., books, blogs, articles, etc.]" : "1_1A",
     "1. How frequently do you engage in each of these marine conservation activities? [Engage with environmental or conservation social media pages]": "1_1B",
@@ -17,32 +17,39 @@ shark_question_mapping = {
     "2. How frequently do you engage in each of these shark conservation activities?  [Support shark research, e.g., volunteered with research teams, collected data, etc.]":"1_2C",
     "2. How frequently do you engage in each of these shark conservation activities?  [Create content to raise awareness, e.g., produce videos or share informative content on social media, etc.]":"1_2D",
     "3. Have you participated in shark wildlife tourism?":"1_3A",
-    "If yes, number of time":"1_3B",
     "4. How would you rate your knowledge of sharks (where they live, where they eat, reproduction, etc.)? ":"2_1A",
-    "5. Please select the number that best represents your feelings about sharks in general, where 1 indicates 'no feeling' and 10 indicates 'Very strong feeling.' [Fear]": "2_2A",
-    "5. Please select the number that best represents your feelings about sharks in general, where 1 indicates 'no feeling' and 10 indicates 'Very strong feeling.' [Dislike]":"2_2B",
-    "5. Please select the number that best represents your feelings about sharks in general, where 1 indicates 'no feeling' and 10 indicates 'Very strong feeling.' [Curiousity]":"2_2C",
-    "5. Please select the number that best represents your feelings about sharks in general, where 1 indicates 'no feeling' and 10 indicates 'Very strong feeling.' [Excitement]":"2_2D",
-    "6. Please indicate your level of agreement with each statement regarding your feelings about sharks.  [I like to learn about sharks.]":"2_3A",
-    "6. Please indicate your level of agreement with each statement regarding your feelings about sharks.  [I think feeding sharks makes them associate humans with food rewards.]":"2_3B",
-    "6. Please indicate your level of agreement with each statement regarding your feelings about sharks.  [I believe sharks are critical to the marine environment.]":"2_3C",
-    "6. Please indicate your level of agreement with each statement regarding your feelings about sharks.  [I think sharks are vulnerable and need more legal protection.]":"2_3D",
-    "6. Please indicate your level of agreement with each statement regarding your feelings about sharks.  [I think that sharks should not be fished or harvested in any way.]":"2_3E",
-    "6. Please indicate your level of agreement with each statement regarding your feelings about sharks.  [I think the legal protection of sharks has caused there to be too many sharks in the ocean.]":"2_3F",
-    "7. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature.  [I think that swimming with sharks in their natural environment is a transformative experience.]":"2_4A",
-    "7. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature.  [I think of myself as a part of nature, not separate from it.]":"2_4B",
-    "7. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature.  [If I had enough resources, such as time or money, I would spend some of them to protect the natural environment.]":"2_4C",
-    "7. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature.  [Behaving responsibly toward nature - living a sustainable lifestyle - is important to who I am.]":"2_4D",
-    "7. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature.  [Experiencing the natural world should be apart of everyones upbringing.]":"2_4E",
-    "7. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature.  [I consider myself a steward of our natural resources.]":"2_4F",
-    "7. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature.  [I protect the natural environment]":"2_4G",
-    "8. Gender":"3_1A",
-    "9. Which of the following categories best describes your age?":"3_2A",
-    "10. Please select your highest level of education completed":"3_3A",
-    "11. Please select one of the following categories that best describes your approximate individual annual income 'before tax' in US dollars: ":"3_4A",
-    "12. Please select your country of residence:":"3_5A",
-    "13. Please select which of the following best describes your occupational status. ":"3_6A",
+    "6. Please select the number that best represents your feelings about sharks in general, where 1 indicates 'no feeling' and 10 indicates 'Very strong feeling.' [Fear]": "2_2A",
+    "6. Please select the number that best represents your feelings about sharks in general, where 1 indicates 'no feeling' and 10 indicates 'Very strong feeling.' [Dislike]":"2_2B",
+    "6. Please select the number that best represents your feelings about sharks in general, where 1 indicates 'no feeling' and 10 indicates 'Very strong feeling.' [Curiousity]":"2_2C",
+    "6. Please select the number that best represents your feelings about sharks in general, where 1 indicates 'no feeling' and 10 indicates 'Very strong feeling.' [Excitement]":"2_2D",
+    "7. Please indicate your level of agreement with each statement regarding your feelings about sharks.  [I like to learn about sharks.]":"2_3A",
+    "7. Please indicate your level of agreement with each statement regarding your feelings about sharks.  [I think feeding sharks makes them associate humans with food rewards.]":"2_3B",
+    "7. Please indicate your level of agreement with each statement regarding your feelings about sharks.  [I believe sharks are critical to the marine ecosystem.]":"2_3C",
+    "7. Please indicate your level of agreement with each statement regarding your feelings about sharks.  [I think sharks are vulnerable and need more legal protection.]":"2_3D",
+    "7. Please indicate your level of agreement with each statement regarding your feelings about sharks.  [I think that sharks should not be fished or harvested in any way.]":"2_3E",
+    "7. Please indicate your level of agreement with each statement regarding your feelings about sharks.  [I think the legal protection of sharks has caused there to be too many sharks in the ocean.]":"2_3F",
+    "8. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature.  [I think that swimming with sharks in their natural environment is a transformative experience.]":"2_4A",
+    "8. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature.  [I think of myself as a part of nature, not separate from it.]":"2_4B",
+    "8. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature.  [If I had enough resources, such as time or money, I would spend some of them to protect the natural environment.]":"2_4C",
+    "8. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature.  [Behaving responsibly toward nature - living a sustainable lifestyle - is important to who I am.]":"2_4D",
+    "8. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature.  [Experiencing the natural world should be apart of everyones upbringing.]":"2_4E",
+    "8. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature.  [I consider myself a steward of our natural resources.]":"2_4F",
+    "8. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature.  [I protect the natural environment]":"2_4G",
+    "9. Gender":"3_1A",
+    "10. Which of the following categories best describes your age?":"3_2A",
+    "11. Please select your highest level of education completed":"3_3A",
+    "12. Please select one of the following categories that best describes your approximate individual annual income 'before tax' in US dollars: ":"3_4A",
+    "13. Please select your country of residence:":"3_5A",
+    "14. Please select which of the following best describes your occupational status. ":"3_6A",
+    "5. Please indicate (with an X) your level of agreement with EACH of the following statements regarding your motivation for visiting. [5a. To see a shark in its natural habitat]":"4_1A",
+    "5. Please indicate (with an X) your level of agreement with EACH of the following statements regarding your motivation for visiting. [5b. To have a unique life experience]":"4_2A",
+    "5. Please indicate (with an X) your level of agreement with EACH of the following statements regarding your motivation for visiting. [5c. To learn about sharks]":"4_3A",
+    "5. Please indicate (with an X) your level of agreement with EACH of the following statements regarding your motivation for visiting. [5d. To learn about hte marine environment]":"4_4A",
+    "5. Please indicate (with an X) your level of agreement with EACH of the following statements regarding your motivation for visiting. [5e. To experience thrill and adventure]":"4_5A",
+    "5. Please indicate (with an X) your level of agreement with EACH of the following statements regarding your motivation for visiting. [5f. To be with family and/or friends]":"4_6A"
+}
 
+shark_question_mapping_T1 = {
     # Timepoint = T1 (Post)
     "1. After your experience, how frequently do you intend to engage in each marine conservation activity? [Read environmental or conservation materials, e.g., books, blogs, articles, etc.]":"1_1A",
     "1. After your experience, how frequently do you intend to engage in each marine conservation activity? [Engage with environmental or conservation social media pages]":"1_1B",
@@ -74,8 +81,10 @@ shark_question_mapping = {
     "7. Please indicate your level of agreement with each of the following statements regarding your connectedness to nature after your experience. [I protect the natural environment]":"2_4G",
     "8. Please describe what you recall from your experience. (i.e., what did you learn about, etc.)":"5_1A",
     "9. Please describe how you think your experience will impact your everyday life (if at all). ":"5_2A",
-    "10. What is the most valuable thing you gained from your experience? ":"5_3A",
+    "10. What is the most valuable thing you gained from your experience? ":"5_3A"
+}
 
+shark_question_mapping_T2 = {
     # Timepoint = T2 (1 Month Follow Up)
     "1. Since your experience, how frequently do you engage in each of these marine conservation activities?  [Read environmental or conservation materials, e.g., books, blogs articles, etc.]":"1_1A",
     "1. Since your experience, how frequently do you engage in each of these marine conservation activities?  [Engage with environmental or conservation social media pages]":"1_1B",
@@ -113,7 +122,9 @@ shark_question_mapping = {
     "9. Please describe what you recall from your shark tourism encounter. (i.e., how many sharks did you see, which species, etc.).":"5_1A",
     "10. Please describe how your shark tourism encounter has impacted your everyday life (if at all).":"5_2A",
     "11. Looking back on your shark experience in South Florida, what would you say was the most valuable thing you gained from your experience?":"5_3A",
-    
+    }
+
+shark_question_mapping_T3 = {
     #Timepoint = T3 (3 Month Follow Up)
     "1. Since your experience, how frequently do you engage in each of these marine conservation activities?  [Read environmental or conservation materials, e.g., books, blogs articles, etc.]":"1_1A",
     "1. Since your experience, how frequently do you engage in each of these marine conservation activities?  [Engage with environmental or conservation social media pages]":"1_1B",
@@ -154,7 +165,7 @@ shark_question_mapping = {
 
 
 # GROUP B: DOCUMENTARY QUESTIONNAIRES 
-documentary_question_mapping = {
+documentary_question_mapping_T0 = {
     #Timepoint = T0 (Initial)
     "1. How frequently do you engage in each of these marine conservation activities? [Read environmental or conservation materials, e.g., books, blogs, articles, etc.]" : "1_1A",
     "1. How frequently do you engage in each of these marine conservation activities? [Engage with environmental or conservation social media pages]": "1_1B",
@@ -190,7 +201,9 @@ documentary_question_mapping = {
     "12. Please select your country of residence:":"3_5A",
     "13. Please select which of the following best describes your occupational status. ":"3_6A",
     "Internal Survey ID - Do Not Change (sona-survey-code)":"0_0A",
+}
 
+documentary_question_mapping_T1 = {
     #Timepoint = T1 (Post)
     "1. After viewing the film, how frequently do you intend to engage in each marine conservation activity? [Read environmental or conservation materials, e.g., books, blogs, articles, etc.]":"1_1A",
     "1. After viewing the film, how frequently do you intend to engage in each marine conservation activity? [Engage with environmental or conservation social media pages]":"1_1B",
@@ -223,7 +236,9 @@ documentary_question_mapping = {
     "8. Please describe what you recall from the documentary. (i.e., what did you learn about, etc.)":"5_1A",
     "9. Please describe how you think watching this documentary will impact your everyday life (if at all). ":"5_2A",
     "10. What is the most valuable thing you gained from watching the documentary? ":"5_3A",
+}
 
+documentary_question_mapping_T2_and_3 = {
     #TIMEPOINT = T2 and T3 (1 and 3 MONTH FOLLOW UP)
     "1. Since your viewing, how frequently do you engage in each of these marine conservation activities?  [Read environmental or conservation materials, e.g., books, blogs articles, etc.]":"1_1A",
     "1. Since your viewing, how frequently do you engage in each of these marine conservation activities?  [Engage with environmental or conservation social media pages]":"1_1B",
@@ -263,7 +278,7 @@ documentary_question_mapping = {
 }
 
 # GROUP C: CONTROL
-control_question_mapping = {
+control_question_mapping_T0 = {
     #Timepoint = T0 (Initial)
     "1. How frequently do you engage in each of these marine conservation activities? [Read environmental or conservation materials, e.g., books, blogs, articles, etc.]":"1_1A",
     "1. How frequently do you engage in each of these marine conservation activities? [Engage with environmental or conservation social media pages]":"1_1B",
@@ -298,8 +313,10 @@ control_question_mapping = {
     "11. Please select one of the following categories that best describes your approximate individual annual income 'before tax' in US dollars: ":"3_4A",
     "12. Please select your country of residence:":"3_5A",
     "13. Please select which of the following best describes your occupational status. ":"3_6A",
-    "14. If you're willing to participate in an additional follow-up survey, three months from today, please indicate below. ":"3_7A",
+    "14. If you're willing to participate in an additional follow-up survey, three months from today, please indicate below. ":"3_7A"
+}
 
+control_question_mapping_T2_and_T3 = {
     #Timepoint = T2 and T3 (1 and 3 Month Follow Up) 
     "1. How frequently do you engage in each of these marine conservation activities?  [Read environmental or conservation materials, e.g., books, blogs articles, etc.]":"1_1A",
     "1. How frequently do you engage in each of these marine conservation activities?  [Engage with environmental or conservation social media pages]":"1_1B",

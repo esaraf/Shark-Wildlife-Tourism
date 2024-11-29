@@ -15,13 +15,16 @@ connection = mysql.connector.connect(
     database='SWT'
 )
 
+# Create a cursor object 
+cursor = connection.cursor()
+
 # Data insertion code below: 
 # Iterate existing Dataframe and insert each row with a UUID 
 
 for index, row in df.iterrows():
     participantID = str(uuid.uuid4()) # Generate a UUID for each participant
     assigned_in_field_id = row['AssignedInFieldID'] if pd.notna(row['AssignedInFieldID']) else None
-    group_name = row['GroupName']
+    group_name = row['Group']
     first_name = row['FirstName'] if pd.notna(row['FirstName']) else None
     last_name = row['LastName'] if pd.notna(row['LastName']) else None
     email_address = row['EmailAddress']
