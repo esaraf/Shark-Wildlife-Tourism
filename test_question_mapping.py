@@ -2,7 +2,9 @@ import unittest
 import pandas as pd
 from question_mapping import documentary_question_mapping_T0, documentary_question_mapping_T1, documentary_question_mapping_T2_and_3,  shark_question_mapping_T0, shark_question_mapping_T1, shark_question_mapping_T2, shark_question_mapping_T3, control_question_mapping_T0, control_question_mapping_T2_and_T3
 from question_type_mapping import question_type_mapping
+
 from utils import filter_non_question_fields
+from secrets_1 import SHARK_RESPONSE_T0
 
 class TestQuestionMapping(unittest.TestCase):
 
@@ -117,7 +119,7 @@ class TestActualtoRecordedSharkGroupQuestionText(unittest.TestCase):
 
     def setUp(self):
         # Load the CSV file with the actual survey responses
-        self.survey_file_path = "/Users/elizabethsaraf/Desktop/Shark_Responses_T0.csv"
+        self.survey_file_path = SHARK_RESPONSE_T0
         self.survey_questions = pd.read_csv(self.survey_file_path)
 
         # Extract column headers starting from the second column (skipping Timestamp)
@@ -151,7 +153,3 @@ class TestActualtoRecordedSharkGroupQuestionText(unittest.TestCase):
 
 if __name__=='__main__':
     unittest.main()
-                                
-                          
-            
-

@@ -4,7 +4,7 @@ import uuid
 
 from secrets_1 import USER, PASSWORD
 
-file_path = ''
+file_path = '/Users/elizabethsaraf/Desktop/SWT/Analysis/Database/csv/Participant.csv'
 df = pd.read_csv(file_path)
 
 # Establish connection to database 
