@@ -46,3 +46,47 @@ cd Shark-Wildlife-Tourism
 ```
 pip install -r requirements.txt
 ```
+3. Set up your MySQL database
+- Create a database named `SWT`
+- Run `db_create.py` to initialize tables.
+
+4. Configure database credentials: 
+- Update the `secrets_1.py` file with your MySQL `USER`, `PASSWORD`, and other sensitive information.
+  
+## Data Structure 
+### Tables 
+- **Participant:** Stores participant details (e.g., `ParticipantID`, `GroupName`, `EmailAddress`).
+- **Question:** Maps questions to `QuestionID`, `SurveyID`, and other metadata.
+- **Response:** Links participants and their answers to `QuestionID`.
+
+### Question Mapping 
+- `combined_dict_mapping`: Maps survey questions to `QuestionID` across multiple time points and groups (e.g., T0, T1).
+- Example:
+``` python
+{
+('How frequently do you engage in conservation activities?', 'T0'):'1_1A'),
+('How frequently do you engage in conservation activities?','T1'):'1_1B')
+}
+```
+
+## Scripts and Usage
+### Key Scripts 
+1. `db_create.py`:
+   - Initializes the MySQL database schema.
+   - Run with: `python db_create.py`
+2. `populate_participant_table.py`:
+   - Adds participants to the database with UUIDs.
+   - Run with `python populate_participant_table.py`
+3. `populate_question_table.py`:
+   - Populates the `Question` table from a CSV.
+   - Run with: `python populate_question_table.py`
+4. `populate_response_table.py`:
+   - Processes survey responses and inserts them into the `Response` table.
+   - Run with: `python populate_response_table.py`
+5. `test_question_mapping.py`
+   - Validates that questions and mappings match between the CSV and dictionary
+   - Run with: `pytest`
+
+### Utility Scripts: 
+- `utils.py`:
+  - Includes helper functions like `filter_non_question_fields` for cleaning data. 
