@@ -43,25 +43,25 @@ CREATE TABLE IF NOT EXISTS Survey (
 # Create Question table 
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS Question (
-               QuestionID VARCHAR(255) PRIMARY KEY,
-               SurveyID VARCHAR(255),
-               ThemeID INT,
-               QuestionType VARCHAR(255),
-               Question TEXT, 
-               IsMandatory BOOLEAN,
-               FOREIGN KEY (SurveyID) REFERENCES Survey(SurveyID)
-               );
-               ''')
+            QuestionUUID CHAR(36) NOT NULL PRIMARY KEY,  -- UUID as the primary key
+            QuestionID VARCHAR(255) NOT NULL,           -- Human-readable ID
+            SurveyID VARCHAR(255),                      -- Foreign key to Survey
+            ThemeID INT,
+            QuestionType VARCHAR(255),
+            Question TEXT,
+            FOREIGN KEY (SurveyID) REFERENCES Survey(SurveyID)
+            );
+            ''')
 
 # Create Response table 
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS Response (
                ResponseID CHAR(36) PRIMARY KEY,
                ParticipantID CHAR(36),
-               QuestionID VARCHAR(255),
+               QuestionUUID VARCHAR(255),
                ResponseValue TEXT,
                FOREIGN KEY (ParticipantID) REFERENCES Participant(ParticipantID),
-               FOREIGN KEY (QuestionID) REFERENCES Question(QuestionID)
+               FOREIGN KEY (QuestionUUID) REFERENCES Question(QuestionUUID)
                );
                ''')
 
@@ -71,7 +71,7 @@ cursor.execute('''ALTER TABLE Response
 ADD CONSTRAINT fk_participant
 FOREIGN KEY (ParticipantID) REFERENCES Participant(ParticipantID),
 ADD CONSTRAINT fk_question
-FOREIGN KEY (QuestionID) REFERENCES Question(QuestionID);
+FOREIGN KEY (QuestionUUID) REFERENCES Question(QuestionUUID);
                ''')
 
 
