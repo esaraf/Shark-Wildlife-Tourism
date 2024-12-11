@@ -29,11 +29,11 @@ CREATE TABLE IF NOT EXISTS Participant (
 # Create Survey table 
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS Survey (
-               SurveyID VARCHAR(255) PRIMARY KEY,
+               SurveyID CHAR(36) PRIMARY KEY,
+               SurveyTypeID VARCHAR(255),
                SurveyName VARCHAR(255),
                ParticipantID CHAR(36), 
-               StartDate DATE,
-               EndDate DATE,
+               Date DATE,
                Trial INT, 
                IsOpen BOOLEAN,
                FOREIGN KEY (ParticipantID) REFERENCES Participant(ParticipantID)
@@ -58,6 +58,7 @@ cursor.execute('''
 CREATE TABLE IF NOT EXISTS Response (
                ResponseID CHAR(36) PRIMARY KEY,
                ParticipantID CHAR(36),
+               SurveyTypeID VARCHAR(255),
                QuestionUUID VARCHAR(255),
                ResponseValue TEXT,
                FOREIGN KEY (ParticipantID) REFERENCES Participant(ParticipantID),
