@@ -36,8 +36,8 @@ CREATE TABLE IF NOT EXISTS Participant (
 # Create Survey table 
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS Survey (
-               SurveyID CHAR(36) PRIMARY KEY,
-               SurveyTypeID VARCHAR(255),
+               SurveyUUID CHAR(36) PRIMARY KEY,
+               SurveyID CHAR(255),
                SurveyName VARCHAR(255),
                ParticipantID CHAR(36), 
                Date DATE,
