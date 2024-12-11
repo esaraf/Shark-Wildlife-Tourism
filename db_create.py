@@ -22,7 +22,8 @@ CREATE TABLE IF NOT EXISTS Participant (
                GroupName VARCHAR(255),
                FirstName VARCHAR(255),
                LastName VARCHAR(255),
-               EmailAddress VARCHAR(255)
+               EmailAddress VARCHAR(255),
+               AgreedT3 TINYINT(1)
                );
                ''')
 

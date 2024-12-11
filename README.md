@@ -56,7 +56,7 @@ pip install -r requirements.txt
 ## Data Structure 
 ### Tables 
 - **Participant:** Stores participant details (e.g., `ParticipantID`, `GroupName`, `EmailAddress`).
-- **Question:** Maps questions to `QuestionID`, `SurveyID`, and other metadata.
+- **Question:** Maps questions to `QuestionID`, ``, and other metadata.
 - **Response:** Links participants and their answers to `QuestionID`.
 
 ### Question Mapping 
@@ -77,6 +77,9 @@ pip install -r requirements.txt
 2. `populate_participant_table.py`:
    - Adds participants to the database with UUIDs.
    - Run with `python populate_participant_table.py`
+3. `populate_survey_table.py`:
+   - Adds completed surveys to the database with UUIDs.
+   - Run with `python populate_survey_table.py`
 3. `populate_question_table.py`:
    - Populates the `Question` table from a CSV.
    - Run with: `python populate_question_table.py`
