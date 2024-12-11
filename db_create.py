@@ -7,12 +7,18 @@ from secrets_1 import USER, PASSWORD
 connection = mysql.connector.connect(
     host='localhost',
     user=USER,
-    password=PASSWORD,
-    database='SWT'
+    password=PASSWORD
 )
 
 # Create a cursor object 
 cursor = connection.cursor()
+
+# Create SWT Database 
+cursor.execute("CREATE DATABASE IF NOT EXISTS SWT;")
+print("Database SWT created successfully.")
+
+# Use the newly created database
+cursor.execute("USE SWT;")
 
 # Create Participant table 
 cursor.execute('''
@@ -46,11 +52,11 @@ cursor.execute('''
 CREATE TABLE IF NOT EXISTS Question (
             QuestionUUID CHAR(36) NOT NULL PRIMARY KEY,  -- UUID as the primary key
             QuestionID VARCHAR(255) NOT NULL,           -- Human-readable ID
-            SurveyID VARCHAR(255),                      -- Foreign key to Survey
+            SurveyUUID CHAR(255),                      -- Foreign key to Survey
             ThemeID INT,
             QuestionType VARCHAR(255),
             Question TEXT,
-            FOREIGN KEY (SurveyID) REFERENCES Survey(SurveyID)
+            FOREIGN KEY (SurveyUUID) REFERENCES Survey(SurveyUUID)
             );
             ''')
 
