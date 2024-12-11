@@ -23,8 +23,8 @@ cursor.execute("USE SWT;")
 # Create Participant table 
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS Participant (
-               ParticipantID CHAR(36) PRIMARY KEY, 
-               AssignedInFieldID INT, 
+               ParticipantUUID CHAR(36) PRIMARY KEY, 
+               ParticipantID INT, 
                GroupName VARCHAR(255),
                FirstName VARCHAR(255),
                LastName VARCHAR(255),
@@ -39,11 +39,11 @@ CREATE TABLE IF NOT EXISTS Survey (
                SurveyUUID CHAR(36) PRIMARY KEY,
                SurveyID CHAR(255),
                SurveyName VARCHAR(255),
-               ParticipantID CHAR(36), 
+               ParticipantUUID CHAR(36), 
                Date DATE,
                Trial INT, 
                IsOpen BOOLEAN,
-               FOREIGN KEY (ParticipantID) REFERENCES Participant(ParticipantID)
+               FOREIGN KEY (ParticipantUUID) REFERENCES Participant(ParticipantUUID)
                );
                ''')
 
@@ -64,11 +64,11 @@ CREATE TABLE IF NOT EXISTS Question (
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS Response (
                ResponseID CHAR(36) PRIMARY KEY,
-               ParticipantID CHAR(36),
+               ParticipantUUID CHAR(36),
                SurveyTypeID VARCHAR(255),
                QuestionUUID VARCHAR(255),
                ResponseValue TEXT,
-               FOREIGN KEY (ParticipantID) REFERENCES Participant(ParticipantID),
+               FOREIGN KEY (ParticipantUUID) REFERENCES Participant(ParticipantUUID),
                FOREIGN KEY (QuestionUUID) REFERENCES Question(QuestionUUID)
                );
                ''')
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS Response (
 # Ensure that you have created necessary FK constraints to enforce referential integrity.
 cursor.execute('''ALTER TABLE Response
 ADD CONSTRAINT fk_participant
-FOREIGN KEY (ParticipantID) REFERENCES Participant(ParticipantID),
+FOREIGN KEY (ParticipantUUID) REFERENCES Participant(ParticipantUUID),
 ADD CONSTRAINT fk_question
 FOREIGN KEY (QuestionUUID) REFERENCES Question(QuestionUUID);
                ''')

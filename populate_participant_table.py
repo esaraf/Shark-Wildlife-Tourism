@@ -33,7 +33,7 @@ for index, row in df.iterrows():
     try: 
         cursor.execute('''
             INSERT INTO Participant (ParticipantUUID, ParticipantID, GroupName, FirstName, LastName, EmailAddress, AgreedT3)
-            VALUES (%s, %s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
                     ''', (participantUUID, participant_id, group_name, first_name, last_name, email_address, agree_to_T3))
         print(f"Inserted participant: {first_name} {last_name} with ID {participantUUID}")
     except mysql.connector.Error as err: 
