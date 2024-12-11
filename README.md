@@ -56,7 +56,7 @@ pip install -r requirements.txt
 ## Data Structure 
 ### Tables 
 - **Participant:** Stores participant details (e.g., `ParticipantID`, `GroupName`, `EmailAddress`).
-- **Question:** Maps questions to `QuestionID`, ``, and other metadata.
+- **Question:** Maps questions to `QuestionID`.
 - **Response:** Links participants and their answers to `QuestionID`.
 
 ### Question Mapping 
