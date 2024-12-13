@@ -17,34 +17,28 @@ connection = mysql.connector.connect(
 
 cursor = connection.cursor()
 
-# SQL query to insert data into the questions table
-insert_query = """
-INSERT INTO Question (QuestionUUID, QuestionID, SurveyTypeID, ThemeID, QuestionType, Question)
-VALUES (%s, %s, %s, %s, %s, %s)
-"""
+for index, row in question_df.iterrows():
+    questionUUID = str(uuid.uuid4())
+    question_id = row['QuestionID']
+    survey_id = row['SurveyID']
+    theme_id = row['ThemeID']
+    question_type = row['QuestionType']
+    question = row['Question']
 
-# Track inserted QuestionIDs
-inserted_question_ids = []
-
-for _, row in question_df.iterrows():
-    question_uuid = str(uuid.uuid4())  # Generate a UUID
-    cursor.execute(insert_query, (
-        question_uuid,  # Insert the UUID
-        row['QuestionID'],
-        row['SurveyTypeID'],
-        row['ThemeID'],
-        row['QuestionType'],
-        row['Question']
-    ))
-    inserted_question_ids.append(row['QuestionID'])  # Track the inserted QuestionID
+    try:
+        cursor.execute('''
+            INSERT IGNORE INTO Question (QuestionUUID, QuestionID, SurveyName, ThemeID, QuestionType, Question)
+            VALUES (%s, %s, %s, %s, %s, %s)
+                       ''', (questionUUID, question_id, survey_id, theme_id, question_type,question))
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+        print(f"Skipping row {index}")
 
 
 # Commit the transaction
 connection.commit()
 
-print(f"Inserted {len(inserted_question_ids)} rows into the questions table.")
-print("Inserted QuestionIDs:")
-print(", ".join(inserted_question_ids))
+print('Data insertion completed')
 
 connection.commit()
 cursor.close()
