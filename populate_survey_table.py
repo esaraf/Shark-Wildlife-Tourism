@@ -1,6 +1,7 @@
 import pandas as pd
 import mysql.connector
 import uuid
+from tqdm import tqdm # Terminal Progress Bar
 
 from secrets_1 import USER, PASSWORD, SURVEY_CSV # TODO: Bring data out of secrets and into data_file
 # from utils import filter_non_question_fields
@@ -16,39 +17,39 @@ connection = mysql.connector.connect(
     database='SWT'
 )
 
-cursor = connection.cursor()
+cursor = connection.cursor(buffered=True) # Override lazy load of one row
 
-# Query to fetch ParticipantUUID based on ParticipantID
-fetch_participant_query = "SELECT ParticipantUUID FROM Participant WHERE ParticipantUUID = %s"
 
-# Insert data into the Survey table
-insert_query = """
-INSERT INTO Survey (
-    SurveyUUID, Name, SurveyTypeID, ParticipantUUID, Date, Trial, IsOpen
-) VALUES (%s, %s, %s, %s, %s, %s)
-"""
+for index, row in survey_df.iterrows():
+    surveyUUID = str(uuid.uuid4()) # Generate a UUID for each survey 
+    survey_id = row['SurveyID'] 
+    survey_name = row['SurveyName']
+    participant_id = row['ParticipantID']
+    date = row['Date']
+    trial = row['Trial']
+    is_open = row['IsOpen']
 
-# Loop through each row in the survey DataFrame
-for _, row in survey_df.iterrows():
-    # Fetch the ParticipantUUID
-    cursor.execute(fetch_participant_query, (row['ParticipantUUID'],))
-    result = cursor.fetchone()
-    
-    if result:
-        participant_uuid = result[0]  # Extract the ParticipantUUID from the result
+    # Insert data into the Survey table
+    try:
+        # Fetch ParticipantUUID based on ParticipantID
+        fetch_participant_query = "SELECT ParticipantUUID FROM Participant WHERE ParticipantID = %s"
+        cursor.execute(fetch_participant_query, (participant_id,))
+        result = cursor.fetchone()
+
+        if result:
+            participant_uuid = result[0]
+        else:
+            print(f"ParticipantID {participant_id} not found in Participant table.")
+            continue  # Skip this row and move to the next
         
-        # Insert the survey row
-        cursor.execute(insert_query, (
-            str(uuid.uuid4()),       # Generate a new SurveyUUID
-            row['Name'],             # Name from the CSV
-            row['SurveyTypeID'],     # SurveyTypeID from the CSV
-            participant_uuid,        # Use the fetched ParticipantUUID
-            row['Date'],             # StartDate from the CSV
-            row['Trial'],            # Trial from the CSV
-            row['IsOpen']            # IsOpen from the CSV
-        ))
-    else:
-        print(f"Warning: ParticipantID {row['ParticipantID']} not found in Participant table.")
+        cursor.execute('''
+            INSERT IGNORE INTO Survey (SurveyUUID, SurveyID, SurveyName, ParticipantUUID, Date, Trial, IsOpen)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
+                       ''', (surveyUUID, survey_id, survey_name, participant_uuid, date, trial, is_open))
+        print(f"Inserted survey: {survey_name} with ID {surveyUUID}")
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+        print(f"Skipping row {index}")
 
 # Commit changes and close the connection
 connection.commit()

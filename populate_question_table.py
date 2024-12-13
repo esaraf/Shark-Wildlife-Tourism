@@ -3,20 +3,10 @@ import mysql.connector
 import uuid
 
 from secrets_1 import USER, PASSWORD, QUESTION_CSV # TODO: Bring data out of secrets and into data_file
-from utils import filter_non_question_fields
-
 
 question_file_path = QUESTION_CSV
 
 question_df = pd.read_csv(question_file_path)
-
-# Filter out non-question fields
-filtered_headers = filter_non_question_fields(question_df.columns.tolist())
-
-# Ensure the proper headers are included in the dataframe
-required_columns = ['QuestionID', 'SurveyTypeID', 'ThemeID', 'QuestionType', 'Question']
-if not all(col in question_df.columns for col in required_columns):
-    raise ValueError("Missing required columns in question_df")
 
 connection = mysql.connector.connect(
     host='localhost',

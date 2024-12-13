@@ -52,35 +52,24 @@ cursor.execute('''
 CREATE TABLE IF NOT EXISTS Question (
             QuestionUUID CHAR(36) NOT NULL PRIMARY KEY,  -- UUID as the primary key
             QuestionID VARCHAR(255) NOT NULL,           -- Human-readable ID
-            SurveyUUID CHAR(255),                      -- Foreign key to Survey
+            SurveyName VARCHAR(255),                      -- Foreign key to Survey
             ThemeID INT,
             QuestionType VARCHAR(255),
-            Question TEXT,
-            FOREIGN KEY (SurveyUUID) REFERENCES Survey(SurveyUUID)
+            Question TEXT
             );
             ''')
 
 # Create Response table 
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS Response (
-               ResponseID CHAR(36) PRIMARY KEY,
-               ParticipantUUID CHAR(36),
-               SurveyTypeID VARCHAR(255),
+               ResponseUUID CHAR(36) PRIMARY KEY,
+               SurveyID VARCHAR(255),
                QuestionUUID VARCHAR(255),
-               ResponseValue TEXT,
-               FOREIGN KEY (ParticipantUUID) REFERENCES Participant(ParticipantUUID),
+               Response TEXT,
                FOREIGN KEY (QuestionUUID) REFERENCES Question(QuestionUUID)
                );
                ''')
 
-
-# Ensure that you have created necessary FK constraints to enforce referential integrity.
-cursor.execute('''ALTER TABLE Response
-ADD CONSTRAINT fk_participant
-FOREIGN KEY (ParticipantUUID) REFERENCES Participant(ParticipantUUID),
-ADD CONSTRAINT fk_question
-FOREIGN KEY (QuestionUUID) REFERENCES Question(QuestionUUID);
-               ''')
 
 
 # Query to get a list of tables 
