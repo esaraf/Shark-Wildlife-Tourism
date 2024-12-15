@@ -52,7 +52,7 @@ cursor.execute('''
 CREATE TABLE IF NOT EXISTS Question (
             QuestionUUID CHAR(36) NOT NULL PRIMARY KEY,  -- UUID as the primary key
             QuestionID VARCHAR(255) NOT NULL,           -- Human-readable ID
-            SurveyName VARCHAR(255),                      -- Foreign key to Survey
+            SurveyID VARCHAR(255),                      -- Link to Survey
             ThemeID INT,
             QuestionType VARCHAR(255),
             Question TEXT
@@ -63,9 +63,12 @@ CREATE TABLE IF NOT EXISTS Question (
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS Response (
                ResponseUUID CHAR(36) PRIMARY KEY,
-               SurveyID VARCHAR(255),
+               SurveyUUID VARCHAR(255),
+               ParticipantUUID CHAR(36),
                QuestionUUID VARCHAR(255),
                Response TEXT,
+               FOREIGN KEY (SurveyUUID) REFERENCES Survey(SurveyUUID),
+               FOREIGN KEY (ParticipantUUID) REFERENCES Participant(ParticipantUUID),
                FOREIGN KEY (QuestionUUID) REFERENCES Question(QuestionUUID)
                );
                ''')
