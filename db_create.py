@@ -63,11 +63,10 @@ CREATE TABLE IF NOT EXISTS Question (
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS Response (
                ResponseUUID CHAR(36) PRIMARY KEY,
-               SurveyUUID VARCHAR(255),
+               SurveyID VARCHAR(255),
                ParticipantUUID CHAR(36),
                QuestionUUID VARCHAR(255),
                Response TEXT,
-               FOREIGN KEY (SurveyUUID) REFERENCES Survey(SurveyUUID),
                FOREIGN KEY (ParticipantUUID) REFERENCES Participant(ParticipantUUID),
                FOREIGN KEY (QuestionUUID) REFERENCES Question(QuestionUUID)
                );
