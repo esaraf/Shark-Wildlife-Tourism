@@ -2,10 +2,26 @@ import pandas as pd
 import mysql.connector
 import uuid
 
-from secrets_1 import USER, PASSWORD, SHARK_RESPONSE_T0, QUESTION_CSV
-from utils import filter_non_question_fields
+from secrets_1 import USER, PASSWORD, QUESTION_CSV
+from secrets_1 import SHARK_RESPONSE_T0, SHARK_RESPONSE_T1, SHARK_RESPONSE_T2, SHARK_RESPONSE_T3
+from secrets_1 import DOCUMENTARY_RESPONSE_T0, DOCUMENTARY_RESPONSE_T1, DOCUMENTARY_RESPONSE_T2, DOCUMENTARY_RESPONSE_T3
+from secrets_1 import CONTROL_T0, CONTROL_T2, CONTROL_T3
 
-response_file_path = SHARK_RESPONSE_T0
+
+#response_file_path = SHARK_RESPONSE_T0
+response_file_path = SHARK_RESPONSE_T1
+#response_file_path = SHARK_RESPONSE_T2
+#response_file_path = SHARK_RESPONSE_T3
+
+#response_file_path = DOCUMENTARY_RESPONSE_T0
+#response_file_path = DOCUMENTARY_RESPONSE_T1
+#response_file_path = DOCUMENTARY_RESPONSE_T2
+#response_file_path = DOCUMENTARY_RESPONSE_T3
+
+#response_file_path = CONTROL_RESPONSE_T0
+#response_file_path = CONTROL_RESPONSE_T2
+#response_file_path = CONTROL_RESPONSE_T3
+
 response_df = pd.read_csv(response_file_path)
 
 question_file_path = QUESTION_CSV
