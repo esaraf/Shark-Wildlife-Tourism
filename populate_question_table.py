@@ -27,7 +27,7 @@ for index, row in question_df.iterrows():
 
     try:
         cursor.execute('''
-            INSERT IGNORE INTO Question (QuestionUUID, QuestionID, SurveyName, ThemeID, QuestionType, Question)
+            INSERT IGNORE INTO Question (QuestionUUID, QuestionID, SurveyID, ThemeID, QuestionType, Question)
             VALUES (%s, %s, %s, %s, %s, %s)
                        ''', (questionUUID, question_id, survey_id, theme_id, question_type,question))
     except mysql.connector.Error as err:
