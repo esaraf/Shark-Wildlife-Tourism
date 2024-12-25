@@ -21,8 +21,8 @@ cursor = connection.cursor(buffered=True) # Override lazy load of one row
 
 
 for index, row in survey_df.iterrows():
-    surveyUUID = str(uuid.uuid4()) # Generate a UUID for each survey 
-    survey_id = row['SurveyID'] 
+    surveyUUID = str(uuid.uuid4()) # Generate a UUID for each survey
+    survey_id = row['SurveyID']
     survey_name = row['SurveyName']
     participant_id = row['ParticipantID']
     date = row['Date']
