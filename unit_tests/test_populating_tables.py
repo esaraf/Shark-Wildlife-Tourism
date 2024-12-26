@@ -18,7 +18,7 @@ def db_connection():
     cursor.execute("CREATE DATABASE IF NOT EXISTS test_swt;")
     cursor.execute("USE test_swt;")
 
-    # Create Participant table
+    # Create test_Participant table
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS test_Participant (
             ParticipantUUID CHAR(36) PRIMARY KEY,
@@ -30,6 +30,18 @@ def db_connection():
             AgreedT3 TINYINT(1)
         );
     ''')
+
+    # Create test_Question table 
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS test_Question (
+            QuestionUUID CHAR(36) NOT NULL PRIMARY KEY,  
+            QuestionID VARCHAR(255) NOT NULL,           
+            SurveyID VARCHAR(255),                      
+            ThemeID INT,
+            QuestionType VARCHAR(255),
+            Question TEXT
+                );
+                   ''')
 
     connection.commit()
     yield cursor  # Provide the cursor to the test
@@ -49,15 +61,15 @@ def test_inserting_participants(db_connection: MySQLCursorAbstract | Any):
             INSERT INTO test_Participant (ParticipantUUID, ParticipantID, GroupName, FirstName, LastName, EmailAddress, AgreedT3)
             VALUES  (%s, %s, %s, %s, %s, %s, %s);
         ''', (
-            row['ParticipantUUID'],  # Ensure scalar value
-            row['ParticipantID'],   # Ensure scalar value
-            row['GroupName'],       # Ensure scalar value
-            row['FirstName'],       # Ensure scalar value
-            row['LastName'],        # Ensure scalar value
-            row['EmailAddress'],    # Ensure scalar value
-            row['AgreedT3']         # Ensure scalar value
+            row['ParticipantUUID'],  
+            row['ParticipantID'],   
+            row['GroupName'],       
+            row['FirstName'],       
+            row['LastName'],       
+            row['EmailAddress'],    
+            row['AgreedT3']         
         ))
-        
+
     # Expected: Data from participant_test_data
     expected = [(
         row['ParticipantUUID'],
@@ -74,3 +86,4 @@ def test_inserting_participants(db_connection: MySQLCursorAbstract | Any):
     actual = db_connection.fetchall()
 
     assert actual == expected, f"Expected {expected}, but got {actual}"
+
