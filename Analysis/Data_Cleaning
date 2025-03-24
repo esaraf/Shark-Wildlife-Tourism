@@ -1,0 +1,455 @@
+# load libraries
+library(readxl)
+library(dplyr)
+
+data <- read_excel("/Users/elizabethsaraf/Desktop/SWT/CSV/MasterSheet.xlsx")
+colnames(data)
+
+data <- data %>%
+  mutate(Group = case_when(
+    Group == "Shark: First Experience" ~ "Shark_First_Experience",
+    Group == "Shark: Experienced" ~ "Shark_Experienced",
+    TRUE ~ Group  # keep other groups unchanged
+  ))
+
+## Constants
+min_value <- -2
+max_value <- 2
+demo_vars <- c("Gender", "Age", "Education", "Country", "Income", "Occupation")
+
+
+# Hypothesis 1: Prosocial
+h1_measured_questions <- data[, c("Group",  
+                                  "Timepoint",
+                                  "ParticipantID...5",
+                                  "2_2C", # Curiosity
+                                  "2_3A", "2_3C", "2_3D", "2_3E", # Perception of Sharks
+                                  "2_4B", "2_4C", "2_4D", "2_4F", "2_4G", # Environmental Identity
+                                  "3_1A", "3_2A", "3_3A", "3_4A", "3_5A", "3_6A" # Demographic
+                               )]
+
+# Hypothesis 2: Proself
+h2_measured_questions <- data[, c("Group",  
+                    "Timepoint",
+                    "ParticipantID...5",
+                    "2_2A", "2_2B", # Fear and Dislike
+                    "2_3B", # I think feeding sharks associates them with food rewards
+                    "2_4D", "2_4E", # Environmental Identity
+                    "3_1A", "3_2A", "3_3A", "3_4A", "3_5A", "3_6A" # Demographic
+                    )]
+
+# Hypothesis 3: Environmental Identity
+h3_measured_questions <- data[, c("Group", 
+                    "Timepoint",
+                    "ParticipantID...5",
+                    "2_4A", "2_4B", "2_4C", "2_4D", "2_4E", "2_4F", "2_4G", # Environmental Identity
+                    "3_1A", "3_2A", "3_3A", "3_4A", "3_5A", "3_6A" # Demographic
+                    )]
+
+# Hypothesis 4: Low Effort Conservation 
+h4_measured_questions <- data[, c("Group", 
+                    "Timepoint",
+                    "ParticipantID...5",
+                    "1_1A", "1_1B", "1_1C", "1_1D", # Low Effort Conservation
+                    "3_1A", "3_2A", "3_3A", "3_4A", "3_5A", "3_6A" # Demographic
+                    )]
+
+# Hypothesis 5: High Effort Conservation 
+h5_measured_questions <- data[, c("Group", 
+                    "Timepoint",
+                    "ParticipantID...5",
+                    "1_2A", "1_2B", "1_2C", "1_2D", # High Effort Conservation
+                    "3_1A", "3_2A", "3_3A", "3_4A", "3_5A", "3_6A" # Demographic
+                    )]
+
+# Hypothesis 6: EAV and PEB correlation
+
+# Hypothesis 7: Participation is most effective 
+
+# Hypothesis 8: Participation has longest lasting impact 
+
+## Functions for Transformations
+# Rescale range (1 to 10) to likert (-2 to +2)
+rescale_range_to_likert <- function(score) {
+  return ((((score-1)*4)/9)-2)
+}
+
+rescale_likert_to_num <- function(score) {
+  case_when(
+    score == "Strongly Disagree" ~ -2, 
+    score == "Disagree" ~ -1, 
+    score == "Unsure" ~ 0, 
+    score == "Agree" ~ 1, 
+    score == "Strongly Agree" ~ 2
+  )
+}
+
+rescale_freq_to_num <- function(score) {
+  case_when(
+    score == "Never" ~ 0, 
+    score == "Rarely" ~ 1, 
+    score == "Occasionally" ~ 2, 
+    score == "Monthly" ~ 3, 
+    score == "Weekly" ~ 4, 
+    score == "Daily" ~ 5
+  )
+}
+
+# Define function to reverse code a numeric column
+reverse_code <- function(column, min_val, max_val) {
+  return((max_val + min_val) - column)
+}
+
+remove_duplicates <- function(df, timepoint) {
+  df %>%
+    filter(Timepoint == timepoint) %>%
+    group_by(ParticipantID...5) %>%
+    filter(n() == 1) %>%  # Keep only participants without duplicates
+    ungroup()
+}
+
+## Transform data 
+h1_measured_questions <- h1_measured_questions %>%
+  mutate(across(starts_with("2_2"), rescale_range_to_likert),
+         across(starts_with("2_3") | starts_with("2_4"), rescale_likert_to_num))
+summary(h1_measured_questions)
+
+h2_measured_questions <- h2_measured_questions %>%
+  mutate(across(starts_with("2_2"), rescale_range_to_likert),
+         across(starts_with("2_3") | starts_with("2_4"), rescale_likert_to_num)) %>%
+  mutate(across(c("2_4D", "2_4E"), ~ reverse_code(., min_value, max_value)))
+
+h3_measured_questions <- h3_measured_questions %>%
+  mutate(across(starts_with("2_4"), rescale_likert_to_num))
+
+h4_measured_questions <- h4_measured_questions %>%
+  mutate(across(starts_with("1_1"), rescale_freq_to_num))
+
+h5_measured_questions <- h5_measured_questions %>%
+  mutate(across(starts_with("1_2"), rescale_freq_to_num))
+
+## Rename ParticipantID column 
+
+h1_measured_questions <- h1_measured_questions %>%
+  rename(
+    `ParticipantID` = `ParticipantID...5`,
+    `Gender` = `3_1A`,
+    `Age` = `3_2A`,
+    `Education` = `3_3A`,
+    `Income` = `3_4A`,
+    `Country` = `3_5A`,
+    `Occupation` = `3_6A`)
+
+h2_measured_questions <- h2_measured_questions %>%
+  rename(
+    `ParticipantID` = `ParticipantID...5`,
+    `Gender` = `3_1A`,
+    `Age` = `3_2A`,
+    `Education` = `3_3A`,
+    `Income` = `3_4A`,
+    `Country` = `3_5A`,
+    `Occupation` = `3_6A`
+    )
+
+h3_measured_questions <- h3_measured_questions %>%
+  rename(
+    `ParticipantID` = `ParticipantID...5`,
+    `Gender` = `3_1A`,
+    `Age` = `3_2A`,
+    `Education` = `3_3A`,
+    `Income` = `3_4A`,
+    `Country` = `3_5A`,
+    `Occupation` = `3_6A`)
+
+h4_measured_questions <- h4_measured_questions %>%
+  rename(
+    `ParticipantID` = `ParticipantID...5`,
+    `Gender` = `3_1A`,
+    `Age` = `3_2A`,
+    `Education` = `3_3A`,
+    `Income` = `3_4A`,
+    `Country` = `3_5A`,
+    `Occupation` = `3_6A`
+         )
+
+h5_measured_questions <- h5_measured_questions %>%
+  rename(
+    `ParticipantID` = `ParticipantID...5`,
+    `Gender` = `3_1A`,
+    `Age` = `3_2A`,
+    `Education` = `3_3A`,
+    `Income` = `3_4A`,
+    `Country` = `3_5A`,
+    `Occupation` = `3_6A`)
+
+## Remove Rows with entire NAs 
+# Identify numeric columns that exclude ParticipantID 
+h1_numeric_cols <- h1_measured_questions %>%
+  dplyr::select(where(is.numeric)) %>%
+  dplyr::select(-`ParticipantID`) %>%
+  colnames()
+
+h2_numeric_cols <- h2_measured_questions %>%
+  dplyr::select(where(is.numeric)) %>%
+  dplyr::select(-`ParticipantID`) %>%
+  colnames()
+
+h3_numeric_cols <- h3_measured_questions %>%
+  dplyr::select(where(is.numeric)) %>%
+  dplyr::select(-`ParticipantID`) %>%
+  colnames()
+
+h4_numeric_cols <- h4_measured_questions %>%
+  dplyr::select(where(is.numeric)) %>%
+  dplyr::select(-`ParticipantID`) %>%
+  colnames()
+
+h5_numeric_cols <- h5_measured_questions %>%
+  dplyr::select(where(is.numeric)) %>%
+  dplyr::select(-`ParticipantID`) %>%
+  colnames()
+
+# Filter out rows that meet conditions 
+h1_measured_questions_clean <- h1_measured_questions %>%
+  dplyr::filter(!if_all(all_of(h1_numeric_cols), is.na))
+
+h2_measured_questions_clean <- h2_measured_questions %>%
+  dplyr::filter(!if_all(all_of(h2_numeric_cols), is.na))
+
+h3_measured_questions_clean <- h3_measured_questions %>%
+  dplyr::filter(!if_all(all_of(h3_numeric_cols), is.na))
+
+h4_measured_questions_clean <- h4_measured_questions %>%
+  dplyr::filter(!if_all(all_of(h4_numeric_cols), is.na))
+
+h5_measured_questions_clean <- h5_measured_questions %>%
+  dplyr::filter(!if_all(all_of(h5_numeric_cols), is.na))
+
+# Ensure 1 Entry per time point per participantID (no duplicate IDs)
+h1_measured_questions_clean %>%
+  count(ParticipantID, Timepoint) %>%
+  filter(n > 1)
+
+h2_measured_questions_clean %>%
+  count(ParticipantID, Timepoint) %>%
+  filter(n > 1)
+
+h3_measured_questions_clean %>%
+  count(ParticipantID, Timepoint) %>%
+  filter(n > 1)
+
+h4_measured_questions_clean %>%
+  count(ParticipantID, Timepoint) %>%
+  filter(n > 1)
+
+h5_measured_questions_clean %>%
+  count(ParticipantID, Timepoint) %>%
+  filter(n > 1)
+
+duplicate_log_h1 <- h1_measured_questions_clean %>%
+  group_by(ParticipantID, Timepoint) %>%
+  filter(n() > 1) %>%
+  ungroup()
+
+duplicate_log_h2 <- h2_measured_questions_clean %>%
+  group_by(ParticipantID, Timepoint) %>%
+  filter(n() > 1) %>%
+  ungroup()
+
+duplicate_log_h3 <- h3_measured_questions_clean %>%
+  group_by(ParticipantID, Timepoint) %>%
+  filter(n() > 1) %>%
+  ungroup()
+
+duplicate_log_h4 <- h4_measured_questions_clean %>%
+  group_by(ParticipantID, Timepoint) %>%
+  filter(n() > 1) %>%
+  ungroup()
+
+duplicate_log_h5 <- h5_measured_questions_clean %>%
+  group_by(ParticipantID, Timepoint) %>%
+  filter(n() > 1) %>%
+  ungroup()
+
+h1_measured_questions_unique <- h1_measured_questions_clean %>%
+  arrange(ParticipantID, Timepoint) %>%
+  distinct(ParticipantID, Timepoint, .keep_all = TRUE)
+
+h2_measured_questions_unique <- h2_measured_questions_clean %>%
+  arrange(ParticipantID, Timepoint) %>%
+  distinct(ParticipantID, Timepoint, .keep_all = TRUE)
+
+h3_measured_questions_unique <- h3_measured_questions_clean %>%
+  arrange(ParticipantID, Timepoint) %>%
+  distinct(ParticipantID, Timepoint, .keep_all = TRUE)
+
+h4_measured_questions_unique <- h4_measured_questions_clean %>%
+  arrange(ParticipantID, Timepoint) %>%
+  distinct(ParticipantID, Timepoint, .keep_all = TRUE)
+
+h5_measured_questions_unique <- h5_measured_questions_clean %>%
+  arrange(ParticipantID, Timepoint) %>%
+  distinct(ParticipantID, Timepoint, .keep_all = TRUE)
+
+# Show a warning with list of affected ParticipantIDs
+h1_warning_ids <- unique(duplicate_log_h1$ParticipantID)
+h2_warning_ids <- unique(duplicate_log_h2$ParticipantID)
+h3_warning_ids <- unique(duplicate_log_h3$ParticipantID)
+h4_warning_ids <- unique(duplicate_log_h4$ParticipantID)
+h5_warning_ids <- unique(duplicate_log_h5$ParticipantID)
+
+message("⚠️ Warning: Duplicate entries found for the following ParticipantIDs (per timepoint). Only the first entry was retained.")
+print(h1_warning_ids)
+print(h2_warning_ids)
+print(h3_warning_ids)
+print(h4_warning_ids)
+print(h5_warning_ids)
+
+
+# Find participants who have both T0 and T1
+h1_participants_with_both <- intersect(h1_measured_questions_unique$ParticipantID, h1_measured_questions_unique$ParticipantID)
+h2_participants_with_both <- intersect(h2_measured_questions_unique$ParticipantID, h2_measured_questions_unique$ParticipantID)
+h3_participants_with_both <- intersect(h3_measured_questions_unique$ParticipantID, h3_measured_questions_unique$ParticipantID)
+h4_participants_with_both <- intersect(h4_measured_questions_unique$ParticipantID, h4_measured_questions_unique$ParticipantID)
+h5_participants_with_both <- intersect(h5_measured_questions_unique$ParticipantID, h5_measured_questions_unique$ParticipantID)
+
+# Filter data to keep only participants with T0 and T1 (except Control)
+h1_measured_questions_unique <- h1_measured_questions_unique %>%
+  filter(Group == "Control" | ParticipantID %in% h1_participants_with_both)
+h2_measured_questions_unique <- h2_measured_questions_unique %>%
+  filter(Group == "Control" | ParticipantID %in% h2_participants_with_both)
+h3_measured_questions_unique <- h3_measured_questions_unique %>%
+  filter(Group == "Control" | ParticipantID %in% h3_participants_with_both)
+h4_measured_questions_unique <- h4_measured_questions_unique %>%
+  filter(Group == "Control" | ParticipantID %in% h4_participants_with_both)
+h5_measured_questions_unique <- h5_measured_questions_unique %>%
+  filter(Group == "Control" | ParticipantID %in% h5_participants_with_both)
+
+## Map Socio & Demo questions to each ParticipantID
+h1_t0_demographics <- h1_measured_questions_unique %>%
+  filter(Timepoint == "T0") %>%
+  dplyr::select(ParticipantID, all_of(demo_vars))
+h2_t0_demographics <- h2_measured_questions_unique %>%
+  filter(Timepoint == "T0") %>%
+  dplyr::select(ParticipantID, all_of(demo_vars))
+h3_t0_demographics <- h3_measured_questions_unique %>%
+  filter(Timepoint == "T0") %>%
+  dplyr::select(ParticipantID, all_of(demo_vars))
+h4_t0_demographics <- h4_measured_questions_unique %>%
+  filter(Timepoint == "T0") %>%
+  dplyr::select(ParticipantID, all_of(demo_vars))
+h5_t0_demographics <- h5_measured_questions_unique %>%
+  filter(Timepoint == "T0") %>%
+  dplyr::select(ParticipantID, all_of(demo_vars))
+
+# Left join to all time points
+h1_measured_questions_unique <- h1_measured_questions_unique %>%
+  dplyr::select(-all_of(demo_vars)) %>%  # remove existing (incomplete) demographics
+  left_join(h1_t0_demographics, by = "ParticipantID")
+
+h2_measured_questions_unique <- h2_measured_questions_unique %>%
+  dplyr::select(-all_of(demo_vars)) %>%  # remove existing (incomplete) demographics
+  left_join(h2_t0_demographics, by = "ParticipantID")
+
+h3_measured_questions_unique <- h3_measured_questions_unique %>%
+  dplyr::select(-all_of(demo_vars)) %>%  # remove existing (incomplete) demographics
+  left_join(h3_t0_demographics, by = "ParticipantID")
+
+h4_measured_questions_unique <- h4_measured_questions_unique %>%
+  dplyr::select(-all_of(demo_vars)) %>%  # remove existing (incomplete) demographics
+  left_join(h4_t0_demographics, by = "ParticipantID")
+
+h5_measured_questions_unique <- h5_measured_questions_unique %>%
+  dplyr::select(-all_of(demo_vars)) %>%  # remove existing (incomplete) demographics
+  left_join(h5_t0_demographics, by = "ParticipantID")
+
+## Imputation based on individuals historical responses
+# If NAs in summary- 
+h1_measured_questions_unique <-h1_measured_questions_unique[rowSums(is.na(h1_measured_questions_unique)) != ncol(h1_measured_questions_unique),]
+summary(h1_measured_questions_unique)
+h2_measured_questions_unique <-h2_measured_questions_unique[rowSums(is.na(h2_measured_questions_unique)) != ncol(h2_measured_questions_unique),]
+summary(h2_measured_questions_unique)
+h3_measured_questions_unique <-h3_measured_questions_unique[rowSums(is.na(h3_measured_questions_unique)) != ncol(h3_measured_questions_unique),]
+summary(h3_measured_questions_unique)
+h4_measured_questions_unique <-h4_measured_questions_unique[rowSums(is.na(h4_measured_questions_unique)) != ncol(h4_measured_questions_unique),]
+summary(h4_measured_questions_unique)
+h5_measured_questions_unique <-h5_measured_questions_unique[rowSums(is.na(h5_measured_questions_unique)) != ncol(h5_measured_questions_unique),]
+summary(h5_measured_questions_unique)
+
+h1_cols_to_impute <- h1_measured_questions_unique %>%
+  dplyr::select(where(is.numeric)) %>%
+  dplyr::select(-ParticipantID) %>%  # Exclude ID column(s)
+  colnames()
+h2_cols_to_impute <- h2_measured_questions_unique %>%
+  dplyr::select(where(is.numeric)) %>%
+  dplyr::select(-ParticipantID) %>%  # Exclude ID column(s)
+  colnames()
+h3_cols_to_impute <- h3_measured_questions_unique %>%
+  dplyr::select(where(is.numeric)) %>%
+  dplyr::select(-ParticipantID) %>%  # Exclude ID column(s)
+  colnames()
+h4_cols_to_impute <- h4_measured_questions_unique %>%
+  dplyr::select(where(is.numeric)) %>%
+  dplyr::select(-ParticipantID) %>%  # Exclude ID column(s)
+  colnames()
+h5_cols_to_impute <- h5_measured_questions_unique %>%
+  dplyr::select(where(is.numeric)) %>%
+  dplyr::select(-ParticipantID) %>%  # Exclude ID column(s)
+  colnames()
+
+# Apply imputations to the data 
+h1_measured_questions_unique[h1_cols_to_impute] <- h1_measured_questions_unique[h1_cols_to_impute] %>%
+  as.data.frame() %>%
+  apply(1, function(row){
+    ifelse(is.na(row), mean(row, na.rm=TRUE), row)
+  }) %>%
+  t() %>%
+  as.data.frame()
+h2_measured_questions_unique[h2_cols_to_impute] <- h2_measured_questions_unique[h2_cols_to_impute] %>%
+  as.data.frame() %>%
+  apply(1, function(row){
+    ifelse(is.na(row), mean(row, na.rm=TRUE), row)
+  }) %>%
+  t() %>%
+  as.data.frame()
+h3_measured_questions_unique[h3_cols_to_impute] <- h3_measured_questions_unique[h3_cols_to_impute] %>%
+  as.data.frame() %>%
+  apply(1, function(row){
+    ifelse(is.na(row), mean(row, na.rm=TRUE), row)
+  }) %>%
+  t() %>%
+  as.data.frame()
+h4_measured_questions_unique[h4_cols_to_impute] <- h4_measured_questions_unique[h4_cols_to_impute] %>%
+  as.data.frame() %>%
+  apply(1, function(row){
+    ifelse(is.na(row), mean(row, na.rm=TRUE), row)
+  }) %>%
+  t() %>%
+  as.data.frame()
+h5_measured_questions_unique[h5_cols_to_impute] <- h5_measured_questions_unique[h5_cols_to_impute] %>%
+  as.data.frame() %>%
+  apply(1, function(row){
+    ifelse(is.na(row), mean(row, na.rm=TRUE), row)
+  }) %>%
+  t() %>%
+  as.data.frame()
+
+h1_measured_questions_unique <- h1_measured_questions_unique %>%
+  mutate(across(where(is.numeric), ~ ifelse(is.na(.), rowMeans(h1_measured_questions_unique[, sapply(h1_measured_questions_unique, is.numeric)], na.rm =TRUE), .)))
+h2_measured_questions_unique <- h2_measured_questions_unique %>%
+  mutate(across(where(is.numeric), ~ ifelse(is.na(.), rowMeans(h2_measured_questions_unique[, sapply(h2_measured_questions_unique, is.numeric)], na.rm =TRUE), .)))
+h3_measured_questions_unique <- h3_measured_questions_unique %>%
+  mutate(across(where(is.numeric), ~ ifelse(is.na(.), rowMeans(h3_measured_questions_unique[, sapply(h3_measured_questions_unique, is.numeric)], na.rm =TRUE), .)))
+h4_measured_questions_unique <- h4_measured_questions_unique %>%
+  mutate(across(where(is.numeric), ~ ifelse(is.na(.), rowMeans(h4_measured_questions_unique[, sapply(h4_measured_questions_unique, is.numeric)], na.rm =TRUE), .)))
+h5_measured_questions_unique <- h5_measured_questions_unique %>%
+  mutate(across(where(is.numeric), ~ ifelse(is.na(.), rowMeans(h5_measured_questions_unique[, sapply(h5_measured_questions_unique, is.numeric)], na.rm =TRUE), .)))
+
+
+# Write csv file
+
+write.csv(h1_measured_questions_unique, "/Users/elizabethsaraf/Desktop/SWT/CSV/R_clean_data_csv/h1_data.csv")
+write.csv(h2_measured_questions_unique, "/Users/elizabethsaraf/Desktop/SWT/CSV/R_clean_data_csv/h2_data.csv")
+write.csv(h3_measured_questions_unique, "/Users/elizabethsaraf/Desktop/SWT/CSV/R_clean_data_csv/h3_data.csv")
+write.csv(h4_measured_questions_unique, "/Users/elizabethsaraf/Desktop/SWT/CSV/R_clean_data_csv/h4_data.csv")
+write.csv(h5_measured_questions_unique, "/Users/elizabethsaraf/Desktop/SWT/CSV/R_clean_data_csv/h5_data.csv")
