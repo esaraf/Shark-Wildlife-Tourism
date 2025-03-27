@@ -1,0 +1,103 @@
+# Load libraries
+library(car)
+library(dplyr)
+library(lme4)
+library(lmerTest)
+library(tidyr)
+
+## Import dataset into Environment
+# 1. From Text (readr)
+# 2. Specify First Row as Headers 
+# 3. Skip first column (Row number assignments)
+# 4. Import Dataset
+
+view(h1_data)
+
+# Calculate dependent variable (prosocial values)
+h1_data <- h1_data %>%
+  rowwise() %>%
+  mutate(prosocial_score = sum(c_across(starts_with("2_")), na.rm = TRUE)) %>%
+  ungroup()
+
+# pro-social dataframe
+prosocial_all_data <- h1_data %>%
+  dplyr::select(
+    Group, ParticipantID, Timepoint, prosocial_score,
+    Gender, Age, Education, Country, Income, Occupation)
+
+# Calculate change between timepoints
+prosocial_change_data <- prosocial_all_data %>%
+  pivot_wider(names_from=Timepoint, values_from=prosocial_score, names_prefix = "T")
+
+prosocial_data <- prosocial_change_data %>%
+  mutate(TT1 = ifelse(Group == "Control", TT0, TT1),
+         change_score = TT1 - TT0)
+
+
+# Reshape wide to long for longitudinal GLMM
+long_data <- prosocial_data %>%
+  pivot_longer(
+    cols = starts_with("TT"),
+    names_to = "Timepoint",
+    values_to = "prosocial_score"
+  ) %>%
+  mutate(
+    Timepoint = recode(Timepoint, TT0 = "T0", TT1 = "T1", TT2 = "T2"),
+    Timepoint = factor(Timepoint, levels = c("T0", "T1", "T2")),
+    ParticipantID = factor(ParticipantID),
+    Group = factor(Group)
+  ) %>%
+  filter(!is.na(change_score))  # Remove rows where score is NA
+  
+# Combine change_score to dataset with demo and socio measures
+t0_demo <- long_data %>%
+  filter(Timepoint == "T0") %>%
+  select(ParticipantID, Gender, Age, Education, Country, Income, Occupation) %>%
+  distinct()
+
+prosocial_data <-long_data %>%
+  dplyr::select(-Gender, -Education, -Age, -Country, -Income, -Occupation) %>%
+  left_join(t0_demo, by = "ParticipantID")
+
+# Run GLMM
+
+prosocial_data <- prosocial_data %>%
+  mutate(
+    Group = factor(Group),
+    ParticipantID = factor(ParticipantID),
+    Gender = factor(Gender),
+    Age = factor(Age),
+    Income = factor(Income),
+    Occupation = factor(Occupation)
+  )
+
+
+### LMM with Individual and Age as random effects 
+glmm_model_1 <- lmer(
+  prosocial_score ~ Timepoint * Group + (1 | ParticipantID),
+  data = prosocial_data
+)
+
+isSingular(glmm_model_1)
+
+summary(glmm_model_1)
+
+### LMM with Individual and Age as nested random effects 
+glmm_model_2 <- lmer(
+  prosocial_score ~ Timepoint * Group + (1 | ParticipantID/Age),
+  data = prosocial_data
+)
+
+isSingular(glmm_model_2)
+
+summary(glmm_model_2)
+
+### LMM with only socio & demo as random effects 
+glmm_model_3 <- lmer(
+  prosocial_score ~ Timepoint * Group + (1 | Age),
+  data = prosocial_data
+)
+
+isSingular(glmm_model_3)
+
+summary(glmm_model_3)
