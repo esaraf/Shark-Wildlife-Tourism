@@ -1,0 +1,46 @@
+# Load libraries
+library(car)
+library(dplyr)
+library(lme4)
+library(tidyr)
+
+## Import dataset into Environment
+# 1. From Text (readr)
+# 2. Specify First Row as Headers 
+# 3. Skip first column (Row number assignments)
+# 4. Import Dataset
+
+view(h1_data)
+
+# Calculate dependent variable (prosocial values)
+h1_data <- h1_data %>%
+  rowwise() %>%
+  mutate(prosocial_score = sum(c_across(starts_with("2_")), na.rm = TRUE)) %>%
+  ungroup()
+
+# pro-social dataframe
+prosocial_data <- h1_data %>%
+  dplyr::select(
+    Group, ParticipantID, Timepoint, prosocial_score)
+
+# Calculate change between timepoints
+prosocial_data <- prosocial_data %>%
+  pivot_wider(names_from=Timepoint, values_from=prosocial_score, names_prefix = "T")
+
+prosocial_data <- prosocial_data %>%
+  mutate(TT1 = ifelse(Group == "Control", TT0, TT1),
+         change_score = TT1 - TT0)
+
+# Remove data points that do not have a change score
+prosocial_data <- prosocial_data %>%
+  dplyr::select(Group, ParticipantID, change_score) %>%
+  dplyr::filter(Group != "Control") %>%
+  dplyr::filter(!is.na(change_score))
+
+# Run One Way ANOVA
+anova_model <- lm(change_score~Group, data=prosocial_data)
+anova_model <- aov(change_score~Group, data=prosocial_data)
+summary(anova_model)
+
+# Run Kruskal Wallis test (without control group)
+kruskal.test(change_score~Group, data=prosocial_data)
