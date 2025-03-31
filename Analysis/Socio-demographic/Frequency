@@ -1,0 +1,59 @@
+# load libraries
+library(readxl)
+library(dplyr)
+
+data <- read_excel("/Users/elizabethsaraf/Desktop/SWT/Analysis/MasterSheet.xlsx")
+colnames(data)
+
+library(dplyr)
+library(janitor)
+
+# Filter to Timepoint T0 and select relevant columns
+demographic_table <- data %>%
+  filter(Timepoint == "T0") %>%
+  dplyr::select(Group, 
+                Gender = `3_1A`, 
+                Age = `3_2A`, 
+                Income = `3_4A`, 
+                Education = `3_3A`, 
+                Country = `3_5A`,
+                Profession = `3_6A`)
+
+# Calculate Frequencies
+table(demographic_table$Gender)["Male"]
+table(demographic_table$Gender)["Female"]
+
+table(demographic_table$Age)["18-29"]
+table(demographic_table$Age)["30-39"]
+table(demographic_table$Age)["40-49"]
+table(demographic_table$Age)["50-59"]
+table(demographic_table$Age)["60 and above"]
+
+table(demographic_table$Income)["< $ 24, 999"]
+table(demographic_table$Income)["$ 25,000 - 49,999"]
+table(demographic_table$Income)["$ 50,000 - 74,999"]
+table(demographic_table$Income)["$ 75,000 - 99,999"]
+table(demographic_table$Income)["> $ 100, 000"]
+
+table(demographic_table$Profession)["Medical Services"]
+table(demographic_table$Profession)["Professional (e.g., med, law, edu, etc.)"]
+table(demographic_table$Profession)["Student"]
+sum(grepl("other", demographic_table$Profession, ignore.case = TRUE))
+table(demographic_table$Profession)["Retail or Commercial Business"]
+table(demographic_table$Profession)["Agriculture"]
+table(demographic_table$Profession)["Arts, Entertainment, or Recreation"]
+table(demographic_table$Profession)["Non-Profit Organization"]
+table(demographic_table$Profession)["Prefer not to say"]
+table(demographic_table$Profession)["Education or Research"]
+
+table(demographic_table$Education)["Bachelor's Degree (e.g., BA, BSc)"]
+table(demographic_table$Education)["Doctorate Degree (e.g. EdD, PhD)"]
+table(demographic_table$Education)["Some University Credit but No Degree"]
+table(demographic_table$Education)["High School"]
+table(demographic_table$Education)["Master's Degree (e.g., MA, MS, Med)"]
+sum(grepl("other", demographic_table$Education, ignore.case = TRUE))
+
+table(demographic_table$Country)["USA"]
+table(demographic_table$Country)["Canada"]
+table(demographic_table$Country)["Mexico"]
+table(demographic_table$Country)["United Kingdom"]
